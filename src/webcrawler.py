@@ -31,23 +31,25 @@ time.sleep(15)
 html_text = driver.page_source
 
 soup = BeautifulSoup(html_text, "lxml")
-anchors = soup.find_all("a", class_ = False)
+allAnchors = soup.find_all("a", class_ = False)
 
 print("===================================================================================================================================================")
 print("===================================================================================================================================================")
 
-for tag in anchors:
+cnnLinksForDatabase = []
+for tag in allAnchors:
     href = tag["href"]
 
     if href[0] == "/":
         href = "https://www.cnn.com" + href
 
-    if href.startswith("https://www.cnn.com"):
+    if (href.startswith("https://www.cnn.com") and (href.endswith("index.html") or href.endswith(".cnn") or href.endswith("CNNUnderscoredHPcontainer") or href[20:25] == "audio")):
+        cnnLinksForDatabase.append(href)
         print(href)
         print()
 
 
-print("Collected " + str(len(anchors)) + " links.")
+print("Collected " + str(len(allAnchors)) + " links.")
 print()
 
 driver.close()
