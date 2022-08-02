@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+import time
 from bs4 import BeautifulSoup
 
 
@@ -23,38 +24,31 @@ driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), op
 # Use webdriver to collect CNN articles
 #########################################
 driver.get("https://www.cnn.com")
-driver.implicitly_wait(10000)
+time.sleep(15)
 driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-driver.implicitly_wait(10000)
+time.sleep(15)
 
-# html_text = driver.page_source
+html_text = driver.page_source
 
-# soup = BeautifulSoup(html_text, "lxml")
-# anchors = soup.find_all("a", class_ = False)
-
-# print("===================================================================================================================================================")
-# print("===================================================================================================================================================")
-
-# for tag in anchors:
-#     href = tag["href"]
-
-#     if href[0] == "/":
-#         href = "https://www.cnn.com" + href
-
-#     if href.startswith("https://www.cnn.com"):
-#         print(href)
-#         print()
-
-
-# print(len(anchors))
-
-
-anchors = driver.find_elements(By.TAG_NAME, "a")
+soup = BeautifulSoup(html_text, "lxml")
+anchors = soup.find_all("a", class_ = False)
 
 print("===================================================================================================================================================")
 print("===================================================================================================================================================")
+
 for tag in anchors:
-    print(tag)
-    print()
+    href = tag["href"]
 
+    if href[0] == "/":
+        href = "https://www.cnn.com" + href
+
+    if href.startswith("https://www.cnn.com"):
+        print(href)
+        print()
+
+
+print("Collected " + str(len(anchors)) + " links.")
+print()
+
+driver.close()
 driver.quit()
