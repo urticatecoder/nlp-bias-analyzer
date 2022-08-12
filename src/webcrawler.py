@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import time
+import json
 from bs4 import BeautifulSoup
 
 
@@ -54,3 +55,16 @@ print()
 
 driver.close()
 driver.quit()
+
+################
+# Serializing json
+################
+cnnLinks = json.dumps(cnnLinksForDatabase, indent=4)
+
+############################
+# Writing to cnn-links.json
+############################
+with open("cnn-links.json", "w") as outfile:
+    outfile.write(cnnLinks)
+
+
