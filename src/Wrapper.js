@@ -5,7 +5,7 @@ import Navbar from './Navbar.js';
 
 
 function Wrapper(props) {
-    return (<div></div>);
+    return (<div><Navbar /></div>);
 }
 
 

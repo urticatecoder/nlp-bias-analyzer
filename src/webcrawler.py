@@ -64,7 +64,5 @@ cnnLinks = json.dumps(cnnLinksForDatabase, indent=4)
 ############################
 # Writing to cnn-links.json
 ############################
-with open("cnn-links.json", "w") as outfile:
+with open('src\cnn-links.json', "w") as outfile:
     outfile.write(cnnLinks)
-
-
